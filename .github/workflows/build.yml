@@ -41,7 +41,7 @@ jobs:
             /d:sonar.host.url="https://sonarcloud.io"
 
           # Paso 2: Compilación (CRÍTICO)
-          dotnet build ExamenU2/ExamenU2.sln --configuration Release
+          dotnet build --configuration Release
 
           # Paso 3: Finalización del análisis (END)
           dotnet sonarscanner end /d:sonar.token="$env:SONAR_TOKEN"
