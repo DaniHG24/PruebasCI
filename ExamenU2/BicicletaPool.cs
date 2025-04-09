@@ -15,51 +15,64 @@ namespace ExamenU2
         }
 
         private void ConfigurarBicicletas()
+{
+    Console.WriteLine("\nConfigura la cantidad de bicicletas disponibles:");
+
+    foreach (TipoBicicleta tipo in Enum.GetValues(typeof(TipoBicicleta)))
+    {
+        int cantidad = SolicitarCantidadBicicletas(tipo);
+        for (int i = 0; i < cantidad; i++)
         {
-            Console.WriteLine("\nConfigura la cantidad de bicicletas disponibles:");
+            Console.WriteLine($"\nConfigurando bicicleta {i + 1} de tipo {tipo}:");
+            Bicicleta bicicleta = ConfigurarBicicleta(tipo);
+            disponibles.Add(bicicleta);
+        }
+    }
+}
 
-            foreach (TipoBicicleta tipo in Enum.GetValues(typeof(TipoBicicleta)))
-            {
-                Console.Write($"¿Cuántas bicicletas de tipo {tipo} quieres crear?: ");
-                if (int.TryParse(Console.ReadLine(), out int cantidad) && cantidad > 0)
-                {
+private int SolicitarCantidadBicicletas(TipoBicicleta tipo)
+{
+    int cantidad;
+    do
+    {
+        Console.Write($"¿Cuántas bicicletas de tipo {tipo} quieres crear?: ");
+    } while (!int.TryParse(Console.ReadLine(), out cantidad) || cantidad <= 0);
+    return cantidad;
+}
 
-                    for (int i = 0; i < cantidad; i++)
-                    {
-                        Console.WriteLine($"\nConfigurando bicicleta {i + 1} de tipo {tipo}:");
-                        int tamanioRuedas;
-                        do
-                        {
-                            Console.Write("Ingrese el tamaño de las ruedas (pulgadas): ");
-                        } while (!int.TryParse(Console.ReadLine(), out tamanioRuedas) || tamanioRuedas <= 0);
-                        Console.Write("Ingrese el color de la bicicleta: ");
-                        string color = Console.ReadLine();
-                        int asientos;
-                        do
-                        {
-                            Console.Write("Ingrese el número de asientos: ");
-                        }
-                        while (!int.TryParse(Console.ReadLine(), out asientos) || asientos > 0);
-                        Console.Write("Ingrese el material del cuadro: ");
-                        string materialCuadro = Console.ReadLine();
-                        Console.Write("Ingrese el tipo de frenos: ");
-                        string tipoFrenos = Console.ReadLine();
-                        Console.Write("Ingrese el número de velocidades: ");
-                        int.TryParse(Console.ReadLine(), out int velocidades);
-                        Bicicleta bicicleta1 = new BicicletaConstructor()
-                            .SetTipo(tipo)
-                            .SetTamanioRuedas(tamanioRuedas)
-                            .SetColor(color)
-                            .SetAsientos(asientos)
-                            .SetMaterialCuadro(materialCuadro)
-                            .SetTipoFrenos(tipoFrenos)
-                            .SetVelocidades(velocidades)
-                            .Build();
+private Bicicleta ConfigurarBicicleta(TipoBicicleta tipo)
+{
+    int tamanioRuedas = SolicitarEntero("Ingrese el tamaño de las ruedas (pulgadas): ", 1);
+    Console.Write("Ingrese el color de la bicicleta: ");
+    string color = Console.ReadLine();
+    int asientos = SolicitarEntero("Ingrese el número de asientos: ", 1);
+    Console.Write("Ingrese el material del cuadro: ");
+    string materialCuadro = Console.ReadLine();
+    Console.Write("Ingrese el tipo de frenos: ");
+    string tipoFrenos = Console.ReadLine();
+    Console.Write("Ingrese el número de velocidades: ");
+    int.TryParse(Console.ReadLine(), out int velocidades);
 
-                        disponibles.Add(bicicleta1);
-                    }
-                }
-            }
+    return new BicicletaConstructor()
+        .SetTipo(tipo)
+        .SetTamanioRuedas(tamanioRuedas)
+        .SetColor(color)
+        .SetAsientos(asientos)
+        .SetMaterialCuadro(materialCuadro)
+        .SetTipoFrenos(tipoFrenos)
+        .SetVelocidades(velocidades)
+        .Build();
+}
+
+private int SolicitarEntero(string mensaje, int minimo)
+{
+    int valor;
+    do
+    {
+        Console.Write(mensaje);
+    } while (!int.TryParse(Console.ReadLine(), out valor) || valor < minimo);
+    return valor;
+}
         }
 
         public void MostrarDisponibles()
