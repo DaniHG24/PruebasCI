@@ -23,7 +23,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '9.0.x'  # Asegura compatibilidad con MSBuild 16+
+          dotnet-version: '8.0.x'  # Asegura compatibilidad con MSBuild 16+
 
       - name: Install SonarScanner
         shell: powershell
@@ -36,12 +36,12 @@ jobs:
         shell: powershell
         run: |
           # Paso 1: Inicio del análisis (BEGIN)
-          dotnet sonarscanner begin /k:"DaniHG24_PruebasWells" /o:"danihg24" `
+          dotnet sonarscanner begin /k:"DaniHG24_PruebasCI" /o:"danihg24" `
             /d:sonar.token="$env:SONAR_TOKEN" `
             /d:sonar.host.url="https://sonarcloud.io"
 
           # Paso 2: Compilación (CRÍTICO)
-          dotnet build --configuration Release
+          dotnet build ExamenU2.sln --configuration Release
 
           # Paso 3: Finalización del análisis (END)
           dotnet sonarscanner end /d:sonar.token="$env:SONAR_TOKEN"
