@@ -51,8 +51,8 @@ jobs:
           dotnet test ExamenU2.sln --configuration Release `
               --collect:"XPlat Code Coverage" `
               --settings:coverletArgs.runsettings `
-              --logger:trx `
+              --logger:"trx;LogFileName=testresults.trx" `
               --results-directory:TestResults
               
-          # Paso 4: Finalización del análisis (END)
+          # Paso 3: Finalización del análisis (END)
           dotnet sonarscanner end /d:sonar.token="$env:SONAR_TOKEN"
