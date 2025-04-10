@@ -52,5 +52,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+<ItemGroup>
+  <PackageReference Include="coverlet.collector" Version="6.0.0" PrivateAssets="all" />
+  <PackageReference Include="coverlet.msbuild" Version="6.0.0" />
+</ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
