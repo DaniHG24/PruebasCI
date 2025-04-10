@@ -28,7 +28,6 @@ namespace ExamenU2
                 {
                     case "1":
                         pool.MostrarDisponibles();
-                        //Console.ReadKey();
                         break;
                     case "2":
                          pool.RentarBicicleta();
