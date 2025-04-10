@@ -5,3 +5,10 @@ C:\Users\Casa\Desktop\ExamenU2\obj\Debug\ExamenU2.csproj.AssemblyReference.cache
 C:\Users\Casa\Desktop\ExamenU2\obj\Debug\ExamenU2.csproj.CoreCompileInputs.cache
 C:\Users\Casa\Desktop\ExamenU2\obj\Debug\ExamenU2.exe
 C:\Users\Casa\Desktop\ExamenU2\obj\Debug\ExamenU2.pdb
+C:\Users\Casa\Documents\GitHub\PruebasCI\ExamenU2\bin\Debug\ExamenU2.exe.config
+C:\Users\Casa\Documents\GitHub\PruebasCI\ExamenU2\bin\Debug\ExamenU2.exe
+C:\Users\Casa\Documents\GitHub\PruebasCI\ExamenU2\bin\Debug\ExamenU2.pdb
+C:\Users\Casa\Documents\GitHub\PruebasCI\ExamenU2\obj\Debug\ExamenU2.csproj.AssemblyReference.cache
+C:\Users\Casa\Documents\GitHub\PruebasCI\ExamenU2\obj\Debug\ExamenU2.csproj.CoreCompileInputs.cache
+C:\Users\Casa\Documents\GitHub\PruebasCI\ExamenU2\obj\Debug\ExamenU2.exe
+C:\Users\Casa\Documents\GitHub\PruebasCI\ExamenU2\obj\Debug\ExamenU2.pdb
