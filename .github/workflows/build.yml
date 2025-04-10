@@ -45,17 +45,14 @@ jobs:
             /d:sonar.host.url="https://sonarcloud.io"
             /d:sonar.cs.opencover.reportsPaths="coverage.opencover.xml" `
             /d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
-            
-          # Paso 2: Compilación
-          dotnet build ExamenU2.sln --configuration Release
 
-          # Paso 3: Ejecutar pruebas unitarias con cobertura (genera informe OpenCover)
+          # Paso 2: Compilar y ejecutar pruebas
+          dotnet build ExamenU2.sln --configuration Release
           dotnet test ExamenU2.sln --configuration Release `
-            --collect:"XPlat Code Coverage" `
-            --settings:coverletArgs.runsettings `
-            --logger:trx `
-            --results-directory:TestResults
-            
-          # Paso 4: Finalización del análisis (END)
+              --collect:"XPlat Code Coverage" `
+              --settings:coverletArgs.runsettings `
+              --logger:trx `
+              --results-directory:TestResults
+              
           # Paso 4: Finalización del análisis (END)
           dotnet sonarscanner end /d:sonar.token="$env:SONAR_TOKEN"
