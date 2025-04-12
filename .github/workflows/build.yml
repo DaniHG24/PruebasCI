@@ -1,0 +1,58 @@
+name: SonarQube
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    name: Build and analyze
+    runs-on: windows-latest
+
+    steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu'
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Necesario para análisis preciso
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install SonarScanner
+        shell: powershell
+        run: |
+          dotnet tool install --global dotnet-sonarscanner
+          dotnet tool install --global coverlet.console
+
+      - name: Build and analyze
+        working-directory: ExamenU2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        shell: powershell
+        run: |
+          # Paso 1: Inicio del análisis (BEGIN)
+          dotnet sonarscanner begin /k:"DaniHG24_PruebasCI" /o:"danihg24" `
+            /d:sonar.token="$env:SONAR_TOKEN" `
+            /d:sonar.host.url="https://sonarcloud.io" `
+            /d:sonar.cs.opencover.reportsPaths="coverage.opencover.xml" `
+            /d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
+
+          # Paso 2: Compilar y ejecutar pruebas
+          dotnet build ExamenU2.sln --configuration Release
+          dotnet test ExamenU2.sln --configuration Release `
+              --collect:"XPlat Code Coverage" `
+              --settings:coverletArgs.runsettings `
+              --logger:"trx;LogFileName=testresults.trx" `
+              --results-directory:TestResults
+              
+          # Paso 3: Finalización del análisis (END)
+          dotnet sonarscanner end /d:sonar.token="$env:SONAR_TOKEN"
